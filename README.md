@@ -1,59 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏠 KitaRoom
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Find your room, find your crew.**
 
-## About Laravel
+KitaRoom is a modern, community-focused rental platform built for students and young professionals. It combines the utility of a classified listings site with the social discovery of a network, helping you find not just a room, but the right roommates.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ The Problem & Our Solution
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Finding a shared living space is about more than just price and location—it's about compatibility. Traditional platforms like iBilik offer listings but lack social tools, while Facebook Groups provide community but no verification or dedicated rental features.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**KitaRoom bridges this gap.** We provide a trusted space where you can:
 
-## Learning Laravel
+-   **List or find a room** with detailed filters.
+-   **Create a social post** looking for roommates, just like on Facebook.
+-   **Build a detailed profile** with lifestyle tags (#EarlyRiser, #PlantLover) to ensure better matches.
+-   **Chat securely** with potential housemates, all within the platform.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🎯 Core Features
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| For Guests & Members                                                                      | For Admins                                                          |
+| :---------------------------------------------------------------------------------------- | :------------------------------------------------------------------ |
+| ✅ **Browse & Search** – View rooms and roommate posts                                    | 👑 **Moderation Dashboard** – Manage all users, listings, and posts |
+| 👤 **Rich User Profiles** – Showcase your lifestyle and preferences                       | ⚠️ **Report Management** – Review and act on user reports           |
+| 📝 **Dual Posting** – Create a "Room for Rent" listing OR a "Roommate Wanted" social post | 📊 **System Analytics** – View platform health and growth metrics   |
+| 💬 **In-App Messaging** – Communicate directly with potential matches                     |                                                                     |
+| 🔐 **Verification & Trust** – User verification and content moderation for safety         |                                                                     |
 
-## Laravel Sponsors
+## 🚀 Tech Stack
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   **Backend:** Laravel 11 (PHP)
+-   **Frontend:** Laravel Blade, Tailwind CSS, Livewire/Alpine.js
+-   **Authentication:** Laravel Breeze
+-   **Database:** MySQL / PostgreSQL
+-   **Deployment:** Ready for Laravel Forge, Vapor, or traditional hosting
 
-### Premium Partners
+## 📁 Project Structure
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+This project follows a **Modular Monolith** architecture for maintainability and clear separation of concerns.
 
-## Contributing
+```
+app/
+├── Modules/
+│   ├── User/           # Authentication, profiles, and account management
+│   ├── Listing/        # "Room for Rent" classified listings (iBilik-style)
+│   ├── SocialPost/     # "Roommate Wanted" social feed posts (Facebook-style)
+│   ├── Messaging/      # Real-time chat between users
+│   └── Admin/          # Moderation and system management tools
+└── Core/               # Shared utilities, base classes, and common logic
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🛠️ Getting Started
 
-## Code of Conduct
+### Prerequisites
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+-   PHP >= 8.2
+-   Composer
+-   Node.js & NPM
+-   MySQL or PostgreSQL
 
-## Security Vulnerabilities
+### Installation
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/Danny-CYH/KitaRoom.git
+    cd KitaRoom
+    ```
+2.  Install PHP dependencies:
+    ```bash
+    composer install
+    ```
+3.  Install frontend dependencies:
+    ```bash
+    npm install && npm run build
+    ```
+4.  Configure your environment:
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+5.  Update `.env` with your database credentials.
+6.  Run migrations and seeders:
+    ```bash
+    php artisan migrate --seed
+    ```
+7.  Start the development server:
+    ```bash
+    php artisan serve
+    ```
 
-## License
+## 🤝 Contributing
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+1.  Fork the project
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgements
+
+-   Inspired by the need for better rental solutions in Malaysia
+-   Built with the amazing Laravel ecosystem
+-   Icons from [Lucide](https://lucide.dev/)
+
+---
+
+**Built with ❤️ for better shared living.**
