@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useSpring } from "framer-motion";
 import ListingCard from "./ListingCard";
 import {
     MapPin,
@@ -13,6 +14,12 @@ export function FeaturedListings() {
     const [dragStartX, setDragStartX] = useState(0);
     const [dragOffset, setDragOffset] = useState(0);
     const carouselRef = useRef(null);
+
+    // Spring animation for smooth dragging
+    const dragSpring = useSpring(0, {
+        stiffness: 300,
+        damping: 30,
+    });
 
     const listings = [
         {
@@ -131,6 +138,13 @@ export function FeaturedListings() {
         lg: 3,
     };
 
+    const getSlidesToShow = () => {
+        if (typeof window === "undefined") return 3;
+        if (window.innerWidth >= 1024) return slidesToShow.lg;
+        if (window.innerWidth >= 768) return slidesToShow.md;
+        return slidesToShow.base;
+    };
+
     const nextSlide = () => {
         setCurrentIndex((prevIndex) =>
             prevIndex >= listings.length - getSlidesToShow()
@@ -147,24 +161,19 @@ export function FeaturedListings() {
         );
     };
 
-    const getSlidesToShow = () => {
-        if (typeof window === "undefined") return 3;
-        if (window.innerWidth >= 1024) return slidesToShow.lg;
-        if (window.innerWidth >= 768) return slidesToShow.md;
-        return slidesToShow.base;
-    };
-
     const handleDragStart = (e) => {
         setIsDragging(true);
-        setDragStartX(e.type === "mousedown" ? e.pageX : e.touches[0].pageX);
+        const clientX = e.type === "mousedown" ? e.pageX : e.touches[0].pageX;
+        setDragStartX(clientX);
         setDragOffset(0);
     };
 
     const handleDragMove = (e) => {
         if (!isDragging) return;
-        const currentX = e.type === "mousemove" ? e.pageX : e.touches[0].pageX;
-        const diff = dragStartX - currentX;
+        const clientX = e.type === "mousemove" ? e.pageX : e.touches[0].pageX;
+        const diff = dragStartX - clientX;
         setDragOffset(diff);
+        dragSpring.set(-diff); // Update spring animation
     };
 
     const handleDragEnd = () => {
@@ -177,6 +186,9 @@ export function FeaturedListings() {
         } else if (dragOffset < -threshold) {
             prevSlide();
         }
+
+        // Smoothly return to position
+        dragSpring.set(0);
         setDragOffset(0);
     };
 
@@ -193,28 +205,85 @@ export function FeaturedListings() {
         return () => window.removeEventListener("resize", handleResize);
     }, [currentIndex, listings.length]);
 
-    const goToSlide = (index) => {
-        setCurrentIndex(index);
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+            },
+        },
+    };
+
+    const buttonVariants = {
+        rest: { scale: 1 },
+        hover: {
+            scale: 1.05,
+            backgroundColor: "rgba(59, 130, 246, 0.1)",
+            transition: {
+                type: "spring",
+                stiffness: 400,
+                damping: 25,
+            },
+        },
+        tap: { scale: 0.95 },
     };
 
     return (
-        <section className="py-16 lg:py-14 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900/50 dark:to-gray-950">
+        <motion.section
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="py-4 md:py-16 lg:py-14 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900/50 dark:to-gray-950"
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
-                <div className="mb-6">
+                <motion.div variants={itemVariants} className="mb-6">
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
                         <div>
-                            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border border-blue-100 dark:border-blue-800 rounded-full px-6 py-3 mb-4">
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ type: "spring", delay: 0.2 }}
+                                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border border-blue-100 dark:border-blue-800 rounded-full px-6 py-3 mb-4"
+                            >
                                 <MapPin className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                                 <span className="text-sm font-semibold text-blue-700 dark:text-blue-300 uppercase tracking-wider">
                                     Featured Properties
                                 </span>
-                            </div>
+                            </motion.div>
                             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3">
                                 Discover Top Rooms in
-                                <span className="block bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                                <motion.span
+                                    initial={{ backgroundPosition: "100% 50%" }}
+                                    animate={{ backgroundPosition: "0% 50%" }}
+                                    transition={{
+                                        duration: 2,
+                                        repeat: Infinity,
+                                        repeatType: "reverse",
+                                    }}
+                                    style={{
+                                        backgroundSize: "200% auto",
+                                    }}
+                                    className="block bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent"
+                                >
                                     Malaysia's Best Locations
-                                </span>
+                                </motion.span>
                             </h2>
                             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
                                 Handpicked selection of premium rooms and
@@ -226,23 +295,34 @@ export function FeaturedListings() {
                         {/* Navigation & Stats */}
                         <div className="flex flex-col sm:flex-row items-center gap-4">
                             <div className="flex items-center gap-4">
-                                <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">
+                                <motion.div
+                                    variants={itemVariants}
+                                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
+                                >
                                     <Building2 className="w-4 h-4 text-blue-600" />
                                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                         {listings.length} Properties
                                     </span>
-                                </div>
+                                </motion.div>
                             </div>
 
                             <div className="flex items-center gap-2">
-                                <button
+                                <motion.button
+                                    variants={buttonVariants}
+                                    initial="rest"
+                                    whileHover="hover"
+                                    whileTap="tap"
                                     onClick={prevSlide}
                                     className="p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                     disabled={currentIndex === 0}
                                 >
                                     <ChevronLeft className="w-5 h-5" />
-                                </button>
-                                <button
+                                </motion.button>
+                                <motion.button
+                                    variants={buttonVariants}
+                                    initial="rest"
+                                    whileHover="hover"
+                                    whileTap="tap"
                                     onClick={nextSlide}
                                     className="p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                     disabled={
@@ -251,21 +331,52 @@ export function FeaturedListings() {
                                     }
                                 >
                                     <RightIcon className="w-5 h-5" />
-                                </button>
+                                </motion.button>
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Carousel Container */}
-                <div className="relative overflow-hidden mb-12">
+                <motion.div
+                    variants={itemVariants}
+                    className="relative overflow-hidden mb-0 md:mb-12"
+                >
                     {/* Carousel Track */}
-                    <div
+                    <motion.div
                         ref={carouselRef}
-                        className="flex transition-transform duration-300 ease-out"
+                        className="flex flex-row cursor-grab active:cursor-grabbing"
                         style={{
-                            transform: `translateX(calc(-${currentIndex * (100 / getSlidesToShow())}% - ${dragOffset}px))`,
-                            cursor: isDragging ? "grabbing" : "grab",
+                            transform: `translateX(calc(-${currentIndex * (100 / getSlidesToShow())}%))`,
+                        }}
+                        animate={{
+                            x: `-${currentIndex * (100 / getSlidesToShow())}%`,
+                        }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 30,
+                        }}
+                        drag="x"
+                        dragConstraints={{
+                            left: -(
+                                (listings.length - getSlidesToShow()) *
+                                (100 / getSlidesToShow())
+                            ),
+                            right: 0,
+                        }}
+                        dragElastic={0.2}
+                        onDragStart={(e, info) => {
+                            setIsDragging(true);
+                        }}
+                        onDragEnd={(e, info) => {
+                            setIsDragging(false);
+                            const threshold = 100;
+                            if (info.offset.x > threshold) {
+                                prevSlide();
+                            } else if (info.offset.x < -threshold) {
+                                nextSlide();
+                            }
                         }}
                         onMouseDown={handleDragStart}
                         onMouseMove={handleDragMove}
@@ -275,24 +386,54 @@ export function FeaturedListings() {
                         onTouchMove={handleDragMove}
                         onTouchEnd={handleDragEnd}
                     >
-                        {listings.map((listing, index) => (
-                            <div
-                                key={index}
-                                className="flex-shrink-0 px-3 mb-3"
-                                style={{ width: `${100 / getSlidesToShow()}%` }}
-                            >
-                                <div className="transition-transform duration-300 hover:scale-[1.02]">
+                        <AnimatePresence mode="wait">
+                            {listings.map((listing, index) => (
+                                <motion.div
+                                    key={index}
+                                    className="flex-shrink-0 px-3 mb-3"
+                                    style={{
+                                        width: `${100 / getSlidesToShow()}%`,
+                                    }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{
+                                        opacity: 1,
+                                        y: 0,
+                                        transition: {
+                                            delay: index * 0.05,
+                                            type: "spring",
+                                            stiffness: 100,
+                                            damping: 15,
+                                        },
+                                    }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    whileHover={{
+                                        scale: 1.02,
+                                        transition: {
+                                            type: "spring",
+                                            stiffness: 400,
+                                            damping: 25,
+                                        },
+                                    }}
+                                >
                                     <ListingCard listing={listing} />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
 
                     {/* Gradient Overlays */}
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-gray-50/50 dark:from-gray-900/50 to-transparent"></div>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-gray-50/50 dark:from-gray-900/50 to-transparent"></div>
-                </div>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-gray-50/50 dark:from-gray-900/50 to-transparent"
+                    ></motion.div>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-gray-50/50 dark:from-gray-900/50 to-transparent"
+                    ></motion.div>
+                </motion.div>
             </div>
-        </section>
+        </motion.section>
     );
 }

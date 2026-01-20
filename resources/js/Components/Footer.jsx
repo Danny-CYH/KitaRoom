@@ -226,34 +226,6 @@ export function Footer() {
                     <span>Made by Danny CYH, Software Engineer</span>
                 </div>
             </div>
-
-            {/* App Store Badges (Optional) */}
-            <div className="max-w-[1280px] mx-auto mt-8 flex justify-center gap-4">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                    <svg
-                        className="w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path d="M14.4 2.304c-1.2 0-2.7 1.2-3.6 1.2-.9 0-2.1-1.2-3.6-1.2-2.7 0-5.4 2.1-5.4 6.3 0 4.2 4.2 7.8 9 12.6.6.6 1.5.9 2.4.9s1.8-.3 2.4-.9c4.8-4.8 9-8.4 9-12.6 0-4.2-2.7-6.3-5.4-6.3z" />
-                    </svg>
-                    <span className="text-sm font-medium">
-                        Available on the App Store
-                    </span>
-                </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                    <svg
-                        className="w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path d="M3 20.5V3.5C3 2.67 3.67 2 4.5 2h15c.83 0 1.5.67 1.5 1.5v17c0 .83-.67 1.5-1.5 1.5h-15C3.67 21 3 20.33 3 20.5zM8 19h8v-3H8v3z" />
-                    </svg>
-                    <span className="text-sm font-medium">
-                        Get it on Google Play
-                    </span>
-                </div>
-            </div>
         </footer>
     );
 }
