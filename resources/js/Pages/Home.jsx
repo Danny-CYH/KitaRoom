@@ -1,9 +1,9 @@
 import { Navbar } from "@/Components/Navbar";
-import { Hero } from "@/Components/Hero";
-import { Features } from "@/Components/Features";
-import { FeaturedListings } from "@/Components/FeaturedListings";
-import { CTASection } from "@/Components/CTASection";
-import { Footer } from "@/Components/Footer";
+import { Hero } from "@/Components/Home/Hero";
+import { Features } from "@/Components/Home/Features";
+import { FeaturedListings } from "@/Components/Home/FeaturedListings";
+import { CTASection } from "@/Components/Home/CTASection";
+import { Footer } from "@/Components/Home/Footer";
 
 export default function Home() {
     return (

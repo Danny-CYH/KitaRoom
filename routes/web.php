@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BrowseRoomController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoomDetailsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,5 +28,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/browse-room', [BrowseRoomController::class, 'browseRoom'])->name('browse-room');
+Route::get('/room-details', [RoomDetailsController::class, 'roomDetails'])->name('room-details');
 
 require __DIR__ . '/auth.php';

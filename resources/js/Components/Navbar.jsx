@@ -27,7 +27,7 @@ export function Navbar() {
         { name: "Rent a Room", href: "#", icon: <Home className="w-4 h-4" /> },
         {
             name: "List a Room",
-            href: "#",
+            href: route("browse-room"),
             icon: <FileText className="w-4 h-4" />,
         },
         {
