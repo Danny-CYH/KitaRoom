@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "@inertiajs/react";
 import {
     Building2,
     Search,
@@ -24,7 +25,11 @@ export function Navbar() {
     const searchInputRef = useRef(null);
 
     const navLinks = [
-        { name: "Rent a Room", href: "#", icon: <Home className="w-4 h-4" /> },
+        {
+            name: "Home",
+            href: route("home"),
+            icon: <Home className="w-4 h-4" />,
+        },
         {
             name: "List a Room",
             href: route("browse-room"),
@@ -277,14 +282,16 @@ export function Navbar() {
 
                                 {/* User Actions */}
                                 <div className="flex items-center space-x-3">
-                                    <motion.button
-                                        className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                    >
-                                        <LogIn className="w-4 h-4 mr-2" />
-                                        Login
-                                    </motion.button>
+                                    <Link href={route("login")}>
+                                        <motion.button
+                                            className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <LogIn className="w-4 h-4 mr-2" />
+                                            Login
+                                        </motion.button>
+                                    </Link>
 
                                     <motion.button
                                         className="hidden md:inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-blue-500/30 hover:from-blue-700 hover:to-blue-800 transition-all duration-300"
@@ -434,47 +441,6 @@ export function Navbar() {
                                         Sign Up Free
                                     </motion.button>
                                 </div>
-
-                                {/* Quick Links */}
-                                <motion.div
-                                    className="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.7 }}
-                                >
-                                    <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 px-4">
-                                        Quick Links
-                                    </h4>
-                                    <div className="grid grid-cols-2 gap-2">
-                                        {[
-                                            "FAQ",
-                                            "Safety Tips",
-                                            "Blog",
-                                            "Contact",
-                                        ].map((item, index) => (
-                                            <motion.a
-                                                key={item}
-                                                href="#"
-                                                className="px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg text-center"
-                                                initial={{
-                                                    opacity: 0,
-                                                    scale: 0.9,
-                                                }}
-                                                animate={{
-                                                    opacity: 1,
-                                                    scale: 1,
-                                                }}
-                                                transition={{
-                                                    delay: 0.1 * index + 0.8,
-                                                }}
-                                                whileHover={{ scale: 1.05 }}
-                                                onClick={closeMenu}
-                                            >
-                                                {item}
-                                            </motion.a>
-                                        ))}
-                                    </div>
-                                </motion.div>
                             </div>
                         </div>
                     </motion.div>
