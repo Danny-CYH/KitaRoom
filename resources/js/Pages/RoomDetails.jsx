@@ -1,4 +1,5 @@
 import React from "react";
+import { Home, MapPin, CheckCircle, Share2, Shield } from "lucide-react";
 import LifestyleCompatibility from "@/Components/RoomDetails/LifestyleCompatibility";
 import RoomGallery from "@/Components/RoomDetails/RoomGallery";
 import RoomSpecifications from "@/Components/RoomDetails/RoomSpecifications";
@@ -18,9 +19,7 @@ export default function RoomDetails() {
                         className="text-[#4d6599] dark:text-gray-400 text-sm font-medium flex items-center gap-1"
                         href="#"
                     >
-                        <span className="material-symbols-outlined text-sm">
-                            home
-                        </span>{" "}
+                        <Home className="w-4 h-4" />
                         Home
                     </a>
                     <span className="text-[#4d6599] text-sm">/</span>
@@ -43,9 +42,7 @@ export default function RoomDetails() {
                             Cozy Middle Room at Bangsar South
                         </h1>
                         <div className="flex items-center gap-2 text-[#4d6599] dark:text-gray-400">
-                            <span className="material-symbols-outlined text-lg">
-                                location_on
-                            </span>
+                            <MapPin className="w-5 h-5" />
                             <p className="text-base font-normal">
                                 South Link, Bangsar South, Kuala Lumpur
                             </p>
@@ -53,15 +50,11 @@ export default function RoomDetails() {
                     </div>
                     <div className="flex gap-3">
                         <button className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-lg text-sm font-bold border border-primary/20">
-                            <span className="material-symbols-outlined text-base">
-                                verified
-                            </span>
+                            <Shield className="w-4 h-4" />
                             <span>Verified Listing</span>
                         </button>
                         <button className="p-2 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                            <span className="material-symbols-outlined">
-                                share
-                            </span>
+                            <Share2 className="w-5 h-5" />
                         </button>
                     </div>
                 </div>
