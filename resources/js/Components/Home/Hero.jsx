@@ -192,7 +192,8 @@ export function Hero() {
                                 </motion.button>
                             </Link>
 
-                            <motion.button
+                            <motion.a
+                                href={route("explore-locations")}
                                 className="inline-flex items-center justify-center gap-3 border-2 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold px-8 py-4 rounded-2xl hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
                                 whileHover={{ scale: 1.05, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
@@ -202,7 +203,7 @@ export function Hero() {
                             >
                                 <MapPin className="w-5 h-5" />
                                 Explore Locations
-                            </motion.button>
+                            </motion.a>
                         </motion.div>
 
                         {/* Stats */}

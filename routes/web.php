@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\BrowseRoomController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ExploreLocationController;
 use App\Http\Controllers\RoomDetailsController;
 use App\Http\Controllers\SocialFeedController;
 
@@ -32,6 +32,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/home', [HomeController::class, 'home'])->name('home');
 Route::get('/browse-room', [BrowseRoomController::class, 'browseRoom'])->name('browse-room');
+Route::get('/explore-locations', [ExploreLocationController::class, 'exploreLocations'])->name('explore-locations');
 Route::get('/room-details', [RoomDetailsController::class, 'roomDetails'])->name('room-details');
 Route::get('/social-feed', [SocialFeedController::class, 'socialFeed'])->name('social-feed');
 
