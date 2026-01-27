@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ExploreLocationController;
 use App\Http\Controllers\RoomDetailsController;
 use App\Http\Controllers\SocialFeedController;
+use App\Http\Controllers\MessageController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,5 +36,6 @@ Route::get('/browse-room', [BrowseRoomController::class, 'browseRoom'])->name('b
 Route::get('/explore-locations', [ExploreLocationController::class, 'exploreLocations'])->name('explore-locations');
 Route::get('/room-details', [RoomDetailsController::class, 'roomDetails'])->name('room-details');
 Route::get('/social-feed', [SocialFeedController::class, 'socialFeed'])->name('social-feed');
+Route::get("/message", [MessageController::class, "message"])->name("message");
 
 require __DIR__ . '/auth.php';
