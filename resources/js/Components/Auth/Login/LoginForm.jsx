@@ -40,6 +40,7 @@ const LoginForm = () => {
                         id="email"
                         type="email"
                         placeholder="e.g. syed@email.com"
+                        autoComplete="off"
                         required
                         value={formData.email}
                         onChange={handleChange}

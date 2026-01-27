@@ -1,5 +1,6 @@
 // components/Hero.jsx
 import React from "react";
+import { Link } from "@inertiajs/react";
 import { Shield, Users, TrendingUp, ArrowRight, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -161,33 +162,35 @@ export function Hero() {
                             className="flex flex-col sm:flex-row gap-4"
                             variants={itemVariants}
                         >
-                            <motion.button
-                                className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 overflow-hidden"
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.98 }}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.8 }}
-                            >
-                                <span className="relative z-10">
-                                    Browse Available Rooms
-                                </span>
-                                <motion.span
-                                    className="relative z-10"
-                                    animate={{ x: [0, 5, 0] }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        repeatDelay: 1,
-                                    }}
+                            <Link href={route("browse-room")}>
+                                <motion.button
+                                    className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 overflow-hidden"
+                                    whileHover={{ scale: 1.05, y: -2 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.8 }}
                                 >
-                                    <ArrowRight className="w-5 h-5" />
-                                </motion.span>
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                    initial={false}
-                                />
-                            </motion.button>
+                                    <span className="relative z-10">
+                                        Browse Available Rooms
+                                    </span>
+                                    <motion.span
+                                        className="relative z-10"
+                                        animate={{ x: [0, 5, 0] }}
+                                        transition={{
+                                            duration: 2,
+                                            repeat: Infinity,
+                                            repeatDelay: 1,
+                                        }}
+                                    >
+                                        <ArrowRight className="w-5 h-5" />
+                                    </motion.span>
+                                    <motion.div
+                                        className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                        initial={false}
+                                    />
+                                </motion.button>
+                            </Link>
 
                             <motion.button
                                 className="inline-flex items-center justify-center gap-3 border-2 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold px-8 py-4 rounded-2xl hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all"

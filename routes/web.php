@@ -4,8 +4,11 @@ use App\Http\Controllers\BrowseRoomController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomDetailsController;
+use App\Http\Controllers\SocialFeedController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -30,5 +33,6 @@ Route::get('/dashboard', function () {
 Route::get('/home', [HomeController::class, 'home'])->name('home');
 Route::get('/browse-room', [BrowseRoomController::class, 'browseRoom'])->name('browse-room');
 Route::get('/room-details', [RoomDetailsController::class, 'roomDetails'])->name('room-details');
+Route::get('/social-feed', [SocialFeedController::class, 'socialFeed'])->name('social-feed');
 
 require __DIR__ . '/auth.php';

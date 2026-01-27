@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "@inertiajs/react";
 import {
     Building2,
     Search,
@@ -31,18 +30,13 @@ export function Navbar() {
             icon: <Home className="w-4 h-4" />,
         },
         {
-            name: "List a Room",
+            name: "Browse Room",
             href: route("browse-room"),
             icon: <FileText className="w-4 h-4" />,
         },
         {
-            name: "Find Roommates",
-            href: "#",
-            icon: <UsersIcon className="w-4 h-4" />,
-        },
-        {
-            name: "How It Works",
-            href: "#",
+            name: "Social Hub",
+            href: route("social-feed"),
             icon: <HelpCircle className="w-4 h-4" />,
         },
     ];
@@ -282,25 +276,25 @@ export function Navbar() {
 
                                 {/* User Actions */}
                                 <div className="flex items-center space-x-3">
-                                    <Link href={route("login")}>
-                                        <motion.button
-                                            className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                        >
-                                            <LogIn className="w-4 h-4 mr-2" />
-                                            Login
-                                        </motion.button>
-                                    </Link>
+                                    <motion.a
+                                        href={route("login")}
+                                        className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        <LogIn className="w-4 h-4 mr-2" />
+                                        Login
+                                    </motion.a>
 
-                                    <motion.button
+                                    <motion.a
+                                        href={route("register")}
                                         className="hidden md:inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-semibold rounded-xl shadow-lg hover:shadow-blue-500/30 hover:from-blue-700 hover:to-blue-800 transition-all duration-300"
                                         whileHover={{ scale: 1.05, y: -2 }}
                                         whileTap={{ scale: 0.95, y: 0 }}
                                     >
                                         <UserPlus className="w-4 h-4 mr-2" />
                                         Sign Up
-                                    </motion.button>
+                                    </motion.a>
 
                                     {/* Mobile Search Button */}
                                     <motion.button
