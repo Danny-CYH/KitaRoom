@@ -1,80 +1,58 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { User, Mail, Lock, Eye, EyeOff, Phone } from "lucide-react";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 
 const RegisterForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [userType, setUserType] = useState("student");
-    const [formData, setFormData] = useState({
-        fullName: "",
-        email: "",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-        agreeTerms: false,
-    });
+
+    const { data, setData, post, processing, errors, setError, clearErrors } =
+        useForm({
+            name: "",
+            email: "",
+
+            password: "",
+            password_confirmation: "",
+            agreeTerms: false,
+            user_type: "student",
+        });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Registration form submitted:", formData);
+        clearErrors();
+
+        if (!data.agreeTerms) {
+            setError("agreeTerms", "You must agree to the terms.");
+            return;
+        }
+
+        if (data.password !== data.password_confirmation) {
+            setError("password_confirmation", "Passwords do not match.");
+            return;
+        }
+
+        post(route("register"), {
+            preserveScroll: true,
+            onSuccess: () => {
+                setData("password", "");
+                setData("password_confirmation", "");
+            },
+        });
     };
 
     const handleChange = (e) => {
         const { id, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [id]: type === "checkbox" ? checked : value,
-        });
+        setData(id, type === "checkbox" ? checked : value);
     };
 
     return (
         <form onSubmit={handleSubmit} className="space-y-5 mt-6">
-            {/* User Type Selection */}
-            <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
-                    I am a
-                </label>
-                <div className="grid grid-cols-2 gap-3">
-                    <button
-                        type="button"
-                        onClick={() => setUserType("student")}
-                        className={`py-3 rounded-xl border transition-all ${
-                            userType === "student"
-                                ? "bg-blue-50 border-blue-200 text-blue-700"
-                                : "border-slate-200 text-slate-600 hover:border-slate-300"
-                        }`}
-                    >
-                        <div className="flex flex-col items-center gap-1">
-                            <span className="text-lg">??</span>
-                            <span className="text-sm font-medium">Student</span>
-                        </div>
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setUserType("professional")}
-                        className={`py-3 rounded-xl border transition-all ${
-                            userType === "professional"
-                                ? "bg-blue-50 border-blue-200 text-blue-700"
-                                : "border-slate-200 text-slate-600 hover:border-slate-300"
-                        }`}
-                    >
-                        <div className="flex flex-col items-center gap-1">
-                            <span className="text-lg">??</span>
-                            <span className="text-sm font-medium">
-                                Professional
-                            </span>
-                        </div>
-                    </button>
-                </div>
-            </div>
-
             {/* Full Name */}
             <div>
                 <label
                     className="block text-sm font-semibold text-slate-700 mb-1.5"
-                    htmlFor="fullName"
+                    htmlFor="name"
                 >
                     Full Name
                 </label>
@@ -82,14 +60,18 @@ const RegisterForm = () => {
                     <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                     <input
                         className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition"
-                        id="fullName"
+                        id="name"
                         type="text"
                         placeholder="e.g. Syed Ahmad"
+                        autoComplete="off"
                         required
-                        value={formData.fullName}
+                        value={data.name}
                         onChange={handleChange}
                     />
                 </div>
+                {errors.name && (
+                    <p className="mt-1 text-xs text-red-600">{errors.name}</p>
+                )}
             </div>
 
             {/* Email */}
@@ -107,33 +89,15 @@ const RegisterForm = () => {
                         id="email"
                         type="email"
                         placeholder="syed@email.com"
+                        autoComplete="off"
                         required
-                        value={formData.email}
+                        value={data.email}
                         onChange={handleChange}
                     />
                 </div>
-            </div>
-
-            {/* Phone Number */}
-            <div>
-                <label
-                    className="block text-sm font-semibold text-slate-700 mb-1.5"
-                    htmlFor="phone"
-                >
-                    Phone Number
-                </label>
-                <div className="relative">
-                    <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                    <input
-                        className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition"
-                        id="phone"
-                        type="tel"
-                        placeholder="+60 12-345 6789"
-                        required
-                        value={formData.phone}
-                        onChange={handleChange}
-                    />
-                </div>
+                {errors.email && (
+                    <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+                )}
             </div>
 
             {/* Password */}
@@ -150,9 +114,9 @@ const RegisterForm = () => {
                         className="w-full pl-11 pr-11 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition"
                         id="password"
                         type={showPassword ? "text" : "password"}
-                        placeholder="••••••••"
+                        placeholder="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
                         required
-                        value={formData.password}
+                        value={data.password}
                         onChange={handleChange}
                     />
                     <button
@@ -167,6 +131,11 @@ const RegisterForm = () => {
                         )}
                     </button>
                 </div>
+                {errors.password && (
+                    <p className="mt-1 text-xs text-red-600">
+                        {errors.password}
+                    </p>
+                )}
                 <p className="text-xs text-slate-500 mt-2">
                     Must be at least 8 characters with letters and numbers
                 </p>
@@ -176,7 +145,7 @@ const RegisterForm = () => {
             <div>
                 <label
                     className="block text-sm font-semibold text-slate-700 mb-1.5"
-                    htmlFor="confirmPassword"
+                    htmlFor="password_confirmation"
                 >
                     Confirm Password
                 </label>
@@ -184,11 +153,11 @@ const RegisterForm = () => {
                     <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                     <input
                         className="w-full pl-11 pr-11 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition"
-                        id="confirmPassword"
+                        id="password_confirmation"
                         type={showConfirmPassword ? "text" : "password"}
-                        placeholder="••••••••"
+                        placeholder="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
                         required
-                        value={formData.confirmPassword}
+                        value={data.password_confirmation}
                         onChange={handleChange}
                     />
                     <button
@@ -205,48 +174,61 @@ const RegisterForm = () => {
                         )}
                     </button>
                 </div>
+                {errors.password_confirmation && (
+                    <p className="mt-1 text-xs text-red-600">
+                        {errors.password_confirmation}
+                    </p>
+                )}
             </div>
 
             {/* Terms Agreement */}
-            <div className="flex items-start gap-3">
-                <input
-                    className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-600/20 border-slate-300 bg-white cursor-pointer"
-                    id="agreeTerms"
-                    type="checkbox"
-                    checked={formData.agreeTerms}
-                    onChange={handleChange}
-                    required
-                />
-                <label
-                    className="text-xs text-slate-600 leading-tight cursor-pointer"
-                    htmlFor="agreeTerms"
-                >
-                    I agree to the{" "}
-                    <Link
-                        href="/terms"
-                        className="text-blue-700 font-semibold hover:underline"
+            <div>
+                <div className="flex items-start gap-3">
+                    <input
+                        className="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-600/20 border-slate-300 bg-white cursor-pointer"
+                        id="agreeTerms"
+                        type="checkbox"
+                        checked={data.agreeTerms}
+                        onChange={handleChange}
+                        required
+                    />
+                    <label
+                        className="text-xs text-slate-600 leading-tight cursor-pointer mt-1"
+                        htmlFor="agreeTerms"
                     >
-                        Terms of Service
-                    </Link>{" "}
-                    and{" "}
-                    <Link
-                        href="/privacy"
-                        className="text-blue-700 font-semibold hover:underline"
-                    >
-                        Privacy Policy
-                    </Link>{" "}
-                    including cookie use.
-                </label>
+                        I agree to the{" "}
+                        <Link
+                            href="/terms"
+                            className="text-blue-700 font-semibold hover:underline"
+                        >
+                            Terms of Service
+                        </Link>{" "}
+                        and{" "}
+                        <Link
+                            href="/privacy"
+                            className="text-blue-700 font-semibold hover:underline"
+                        >
+                            Privacy Policy
+                        </Link>{" "}
+                        including cookie use.
+                    </label>
+                </div>
+                {errors.agreeTerms && (
+                    <p className="mt-1 text-xs text-red-600">
+                        {errors.agreeTerms}
+                    </p>
+                )}
             </div>
 
             {/* Submit Button */}
             <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-blue-700 text-white py-3.5 px-4 rounded-xl text-base font-semibold shadow-lg shadow-blue-700/20 hover:bg-blue-800 transition mt-4"
+                disabled={processing}
+                className="w-full bg-blue-700 text-white py-3.5 px-4 rounded-xl text-base font-semibold shadow-lg shadow-blue-700/20 hover:bg-blue-800 transition mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
                 type="submit"
             >
-                Create Account
+                {processing ? "Creating account..." : "Create Account"}
             </motion.button>
         </form>
     );

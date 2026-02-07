@@ -7,9 +7,9 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -36,7 +36,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $userId = $this->generateUserId();
+
         $user = User::create([
+            'user_id' => $userId,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -44,8 +47,17 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        return redirect()
+            ->route('register')
+            ->with('status', 'verification-link-sent');
+    }
 
-        return redirect(route('dashboard', absolute: false));
+    private function generateUserId(): string
+    {
+        do {
+            $userId = 'KR-' . now()->format('ymd') . '-' . strtoupper(Str::random(4));
+        } while (User::where('user_id', $userId)->exists());
+
+        return $userId;
     }
 }

@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { usePage, Link } from "@inertiajs/react";
 import RegisterForm from "@/Components/Auth/Register/RegisterForm";
 import SocialRegisterButtons from "@/Components/Auth/Register/SocialRegisterButtons";
 import AuthFooter from "@/Components/Auth/Register/AuthFooter";
 
 export default function RegisterPage() {
+    const { flash } = usePage().props;
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        if (flash?.status === "verification-link-sent") {
+            setShowModal(true);
+        }
+    }, [flash?.status]);
+
     return (
         <div className="min-h-screen bg-[#eef2f7] font-body text-slate-900">
             <div className="min-h-screen flex items-center justify-center px-4 py-10">
@@ -93,6 +103,40 @@ export default function RegisterPage() {
                     </div>
                 </div>
             </div>
+
+            {showModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 px-4">
+                    <div className="w-full max-w-md rounded-2xl bg-white shadow-2xl shadow-slate-900/20">
+                        <div className="p-6">
+                            <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center mb-4 text-xl">
+                                ??
+                            </div>
+                            <h3 className="text-xl font-display font-semibold mb-2">
+                                Verify your email
+                            </h3>
+                            <p className="text-sm text-slate-600">
+                                We have sent a verification link to your email.
+                                Please verify your account before logging in.
+                            </p>
+                        </div>
+                        <div className="px-6 pb-6 flex items-center justify-end gap-3">
+                            <button
+                                type="button"
+                                onClick={() => setShowModal(false)}
+                                className="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-800"
+                            >
+                                Close
+                            </button>
+                            <Link
+                                href="/login"
+                                className="px-4 py-2 rounded-lg text-sm font-semibold bg-blue-700 text-white hover:bg-blue-800"
+                            >
+                                Go to Login
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
