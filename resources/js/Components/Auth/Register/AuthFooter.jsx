@@ -3,32 +3,33 @@ import { Link } from "@inertiajs/react";
 
 const AuthFooter = ({ text, linkText, linkHref }) => {
     return (
-        <div className="bg-gray-50 dark:bg-gray-800/50 py-5 px-8 border-t border-gray-100 dark:border-gray-800">
+        <div className="pt-6">
             <div className="text-center">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-slate-600">
                     {text}{" "}
                     <Link
-                        to={linkHref}
-                        className="text-primary font-bold hover:underline transition-colors"
+                        href={linkHref}
+                        className="text-blue-700 font-semibold hover:underline transition"
                     >
                         {linkText}
                     </Link>
                 </p>
-                <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                <p className="text-xs text-slate-500 mt-2">
                     By registering, you agree to our{" "}
                     <Link
-                        to="/terms"
-                        className="underline hover:text-primary transition-colors"
+                        href="/terms"
+                        className="underline hover:text-blue-700 transition"
                     >
                         Terms
                     </Link>{" "}
                     and{" "}
                     <Link
-                        to="/privacy"
-                        className="underline hover:text-primary transition-colors"
+                        href="/privacy"
+                        className="underline hover:text-blue-700 transition"
                     >
                         Privacy Policy
                     </Link>
+                    .
                 </p>
             </div>
         </div>

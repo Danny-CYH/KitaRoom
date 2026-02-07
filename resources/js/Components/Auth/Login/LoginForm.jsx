@@ -34,20 +34,20 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-1">
+            <div className="space-y-2">
                 <label
-                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300"
+                    className="block text-sm font-semibold text-slate-700"
                     htmlFor="email"
                 >
-                    Email Address
+                    Email
                 </label>
                 <div className="relative">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                     <input
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition"
                         id="email"
                         type="email"
-                        placeholder="e.g. ali@email.com"
+                        placeholder="Enter your email"
                         autoComplete="email"
                         required
                         value={formData.email}
@@ -56,28 +56,28 @@ const LoginForm = () => {
                 </div>
             </div>
 
-            <div className="space-y-1">
+            <div className="space-y-2">
                 <div className="flex justify-between items-center">
                     <label
-                        className="block text-sm font-semibold text-gray-700 dark:text-gray-300"
+                        className="block text-sm font-semibold text-slate-700"
                         htmlFor="password"
                     >
                         Password
                     </label>
                     <Link
                         href="/forgot-password"
-                        className="text-sm text-blue-600 dark:text-blue-400 font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                        className="text-sm text-blue-700 font-semibold hover:text-blue-600 transition"
                     >
                         Forgot Password?
                     </Link>
                 </div>
                 <div className="relative">
-                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                     <input
-                        className="w-full pl-11 pr-11 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                        className="w-full pl-11 pr-11 py-3.5 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition"
                         id="password"
                         type={showPassword ? "text" : "password"}
-                        placeholder="••••••••"
+                        placeholder="Enter your password"
                         required
                         value={formData.password}
                         onChange={handleChange}
@@ -85,7 +85,7 @@ const LoginForm = () => {
                     <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
                     >
                         {showPassword ? (
                             <EyeOff className="w-5 h-5" />
@@ -99,17 +99,17 @@ const LoginForm = () => {
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <input
-                        className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-blue-600 focus:ring-blue-500/20 cursor-pointer"
+                        className="w-4 h-4 rounded border-slate-300 bg-white text-blue-600 focus:ring-blue-600/20 cursor-pointer"
                         id="remember"
                         type="checkbox"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
                     />
                     <label
-                        className="ml-2 text-sm text-gray-600 dark:text-gray-400 cursor-pointer"
+                        className="ml-2 text-sm text-slate-600 cursor-pointer"
                         htmlFor="remember"
                     >
-                        Keep me signed in
+                        Remember me
                     </label>
                 </div>
             </div>
@@ -118,7 +118,7 @@ const LoginForm = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-4 rounded-xl text-base font-bold shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-blue-700 text-white py-3.5 px-4 rounded-xl text-base font-semibold shadow-lg shadow-blue-700/20 hover:bg-blue-800 transition disabled:opacity-70 disabled:cursor-not-allowed"
                 type="submit"
             >
                 {isLoading ? (
@@ -147,19 +147,19 @@ const LoginForm = () => {
                 ) : (
                     <div className="flex items-center justify-center">
                         <LogIn className="w-5 h-5 mr-2" />
-                        Sign In
+                        Sign in
                     </div>
                 )}
             </motion.button>
 
-            <div className="pt-4 border-t border-gray-200 dark:border-gray-800 text-center">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                    New to KitaRoom?{" "}
+            <div className="pt-2 text-center">
+                <p className="text-sm text-slate-600">
+                    Don&apos;t have an account?{" "}
                     <Link
                         href="/register"
-                        className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                        className="text-blue-700 font-semibold hover:text-blue-600 transition"
                     >
-                        Create an account
+                        Sign up
                     </Link>
                 </p>
             </div>

@@ -16,7 +16,8 @@ export default {
                 "background-dark": "#111621",
             },
             fontFamily: {
-                display: ["Inter", "sans-serif"],
+                display: ["Space Grotesk", "sans-serif"],
+                body: ["Manrope", "sans-serif"],
             },
         },
     },
