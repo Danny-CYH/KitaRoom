@@ -9,6 +9,8 @@ import {
     Car,
     Users,
     Ruler,
+    Calendar,
+    UserPlus,
 } from "lucide-react";
 
 const ListingCard = ({ listing }) => {
@@ -26,6 +28,8 @@ const ListingCard = ({ listing }) => {
         amenities = ["wifi", "parking"],
         rating = 4.8,
         reviews = 42,
+        moveInDate = "Available Now",
+        preferredTenant = "Students & Professionals",
     } = listing;
 
     return (
@@ -63,10 +67,10 @@ const ListingCard = ({ listing }) => {
                 </button>
 
                 {/* Price */}
-                <div className="absolute bottom-4 left-4">
-                    <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2.5 rounded-xl font-bold shadow-xl">
+                <div className="absolute bottom-4 left-3">
+                    <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-3 py-2.5 rounded-xl font-bold shadow-xl">
                         <div className="flex items-baseline">
-                            <span className="text-lg">
+                            <span className="text-sm">
                                 {price.split("/")[0]}
                             </span>
                             <span className="text-sm font-normal opacity-90 ml-1">
@@ -77,7 +81,7 @@ const ListingCard = ({ listing }) => {
                 </div>
 
                 {/* Rating */}
-                <div className="absolute bottom-4 right-4 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                <div className="absolute bottom-4 right-1 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
                     <div className="flex">
                         {[...Array(5)].map((_, i) => (
                             <svg
@@ -109,16 +113,30 @@ const ListingCard = ({ listing }) => {
                     </p>
                 </div>
 
-                {/* Tags - Removed hover background */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                    {tags.map((tag, index) => (
-                        <span
-                            key={index}
-                            className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium"
-                        >
-                            #{tag}
-                        </span>
-                    ))}
+                {/* Move-in Date & Preferred Tenant - Replaced Tags */}
+                <div className="grid grid-cols-1 gap-3 mb-4">
+                    <div className="flex items-center gap-2 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                        <Calendar className="w-4 h-4 text-blue-600" />
+                        <div>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                Move-in Date
+                            </p>
+                            <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                                {moveInDate}
+                            </p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                        <UserPlus className="w-4 h-4 text-purple-600" />
+                        <div>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                Preferred Tenant
+                            </p>
+                            <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                                {preferredTenant}
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Details */}
@@ -160,22 +178,7 @@ const ListingCard = ({ listing }) => {
 
                 {/* Amenities & Action */}
                 <div className="flex items-center justify-between pt-4">
-                    <div className="flex items-center gap-2">
-                        {amenities.includes("wifi") && (
-                            <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                <Wifi className="w-4 h-4 text-blue-600" />
-                            </div>
-                        )}
-                        {amenities.includes("parking") && (
-                            <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                <Car className="w-4 h-4 text-blue-600" />
-                            </div>
-                        )}
-                        <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                            <Users className="w-4 h-4 text-blue-600" />
-                        </div>
-                    </div>
-                    <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-sm hover:shadow-md">
+                    <button className="px-4 py-2 w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-sm hover:shadow-md">
                         View Details
                     </button>
                 </div>
