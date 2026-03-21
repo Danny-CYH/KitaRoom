@@ -2,7 +2,7 @@ import SearchFilterBar from "@/Components/BrowseRoom/SearchFilterBar";
 import ListingCard from "@/Components/ListingCard";
 import { Navbar } from "@/Components/Navbar";
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function BrowseRoom() {
     // Dummy data for listings
@@ -316,6 +316,9 @@ export default function BrowseRoom() {
     async function get_listRoom() {
         try {
             const response = await axios.get("rooms");
+
+            console.log(response.data);
+
             setRoomListing(response.data);
         } catch (error) {
             console.log(error);

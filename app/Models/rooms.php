@@ -25,4 +25,14 @@ class Rooms extends Model
         "is_verified",
         "available_from",
     ];
+
+    public function room_amenities()
+    {
+        return $this->hasMany(RoomAmenities::class, 'room_id', "room_id");
+    }
+
+    public function property()
+    {
+        return $this->hasOne(Property::class, "property_id", "property_id");
+    }
 }

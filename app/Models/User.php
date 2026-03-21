@@ -26,11 +26,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'user_id',
         'name',
         'email',
+        'phone',
         'password',
         'role',
-        'status',
         'last_login_at',
-        'profile_id'
+        'profile_id',
+        'booking_id',
+        'room_id',
     ];
 
     /**
@@ -54,5 +56,10 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function property()
+    {
+        return $this->hasMany(Property::class, "user_id", "user_id");
     }
 }

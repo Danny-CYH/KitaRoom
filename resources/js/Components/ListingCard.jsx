@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "@inertiajs/react";
 import {
     MapPin,
     Heart,
@@ -11,8 +12,6 @@ import {
 } from "lucide-react";
 
 export default function ListingCard({ room_listing }) {
-    console.log(room_listing);
-
     const [isFavorite, setIsFavorite] = useState(false);
 
     return (
@@ -88,11 +87,11 @@ export default function ListingCard({ room_listing }) {
                 {/* Title & Location */}
                 <div className="mb-4">
                     <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        N/A
+                        {room_listing.property.property_name || "N/A"}
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
                         <MapPin className="w-4 h-4" />
-                        N/A
+                        {room_listing.property.locations || "N/A"}
                     </p>
                 </div>
 
@@ -151,7 +150,7 @@ export default function ListingCard({ room_listing }) {
                         <div className="flex items-center justify-center gap-2 mb-1">
                             <Ruler className="w-4 h-4 text-blue-600" />
                             <span className="font-semibold text-gray-900 dark:text-white">
-                                N/A
+                                {room_listing.room_size}
                             </span>
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -161,11 +160,11 @@ export default function ListingCard({ room_listing }) {
                 </div>
 
                 {/* Amenities & Action */}
-                <div className="flex items-center justify-between pt-4">
+                <Link href={route("room-details", room_listing.room_id)}>
                     <button className="px-4 py-2 w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-sm hover:shadow-md">
                         View Details
                     </button>
-                </div>
+                </Link>
             </div>
         </div>
     );
