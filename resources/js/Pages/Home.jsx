@@ -5,14 +5,14 @@ import { FeaturedListings } from "@/Components/Home/FeaturedListings";
 import { CTASection } from "@/Components/Home/CTASection";
 import { Footer } from "@/Components/Home/Footer";
 
-export default function Home() {
+export default function Home({ room_data }) {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
             <Navbar />
             <main>
                 <Hero />
                 <Features />
-                <FeaturedListings />
+                <FeaturedListings room_data={room_data} />
                 <CTASection />
             </main>
             <Footer />

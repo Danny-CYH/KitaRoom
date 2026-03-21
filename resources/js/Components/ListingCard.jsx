@@ -87,11 +87,11 @@ export default function ListingCard({ room_listing }) {
                 {/* Title & Location */}
                 <div className="mb-4">
                     <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {room_listing.property.property_name || "N/A"}
+                        {room_listing?.property?.property_name || "N/A"}
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
                         <MapPin className="w-4 h-4" />
-                        {room_listing.property.locations || "N/A"}
+                        {room_listing?.property?.locations || "N/A"}
                     </p>
                 </div>
 

@@ -1,5 +1,5 @@
-import React from "react";
-import { Home, MapPin, CheckCircle, Share2, Shield } from "lucide-react";
+import React, { useState } from "react";
+import { Home, MapPin, Share2, Shield } from "lucide-react";
 import LifestyleCompatibility from "@/Components/RoomDetails/LifestyleCompatibility";
 import RoomGallery from "@/Components/RoomDetails/RoomGallery";
 import RoomSpecifications from "@/Components/RoomDetails/RoomSpecifications";
@@ -8,7 +8,9 @@ import RoomSidebar from "@/Components/RoomDetails/RoomSidebar";
 import Footer from "@/Components/Home/Footer";
 import { Navbar } from "@/Components/Navbar";
 
-export default function RoomDetails() {
+export default function RoomDetails({ room_data }) {
+    const [roomData, setRoomData] = useState(room_data[0]);
+    console.log(room_data);
     return (
         <div className="bg-background-light dark:bg-background-dark min-h-screen">
             <Navbar />
@@ -39,20 +41,22 @@ export default function RoomDetails() {
                 <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
                     <div className="flex flex-col gap-1">
                         <h1 className="text-[#0e121b] dark:text-white text-3xl font-black leading-tight tracking-tight">
-                            Cozy Middle Room at Bangsar South
+                            {roomData.property.property_name || "Not Available"}
                         </h1>
                         <div className="flex items-center gap-2 text-[#4d6599] dark:text-gray-400">
                             <MapPin className="w-5 h-5" />
                             <p className="text-base font-normal">
-                                South Link, Bangsar South, Kuala Lumpur
+                                {roomData.property.locations || "Not Available"}
                             </p>
                         </div>
                     </div>
                     <div className="flex gap-3">
-                        <button className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-lg text-sm font-bold border border-primary/20">
-                            <Shield className="w-4 h-4" />
-                            <span>Verified Listing</span>
-                        </button>
+                        {roomData.is_verified && (
+                            <button className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-lg text-sm font-bold border border-primary/20">
+                                <Shield className="w-4 h-4" />
+                                <span>Verified Listing</span>
+                            </button>
+                        )}
                         <button className="p-2 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                             <Share2 className="w-5 h-5" />
                         </button>

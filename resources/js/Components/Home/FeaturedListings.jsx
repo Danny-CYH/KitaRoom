@@ -9,141 +9,141 @@ import {
     ArrowRight,
 } from "lucide-react";
 
-export function FeaturedListings() {
+export function FeaturedListings({ room_data }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const carouselRef = useRef(null);
     const intervalRef = useRef(null);
 
-    const listings = [
-        {
-            image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-            type: "MASTER ROOM",
-            price: "RM 850/mo",
-            title: "Sunway Geo Residences",
-            location: "Bandar Sunway, Selangor",
-            tags: ["Quiet", "PetFriendly", "NonSmoker", "Wifi", "AC"],
-            beds: "1",
-            baths: "1 Bath",
-            size: "650",
-            amenities: ["wifi", "ac", "parking"],
-            rating: 4.8,
-            reviews: 24,
-            distance: "1.2 km from Sunway University",
-            availableFrom: "Jan 15, 2024",
-            isVerified: true,
-            isFeatured: true,
-            isTrending: true,
-            views: 245,
-            saves: 42,
-        },
-        {
-            image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-            type: "SINGLE ROOM",
-            price: "RM 600/mo",
-            title: "Nadi Bangsar Service Residence",
-            location: "Bangsar, Kuala Lumpur",
-            tags: ["NearLRT", "Professional", "Gym", "Pool", "Security"],
-            beds: "1",
-            baths: "Shared",
-            size: "450",
-            amenities: ["wifi", "gym", "pool", "security"],
-            rating: 4.6,
-            reviews: 18,
-            distance: "300m from Bangsar LRT",
-            availableFrom: "Immediate",
-            isVerified: true,
-            isFeatured: true,
-            isTrending: true,
-            views: 189,
-            saves: 31,
-        },
-        {
-            image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-            type: "MIDDLE ROOM",
-            price: "RM 750/mo",
-            title: "The Grand Subang SS15",
-            location: "Subang Jaya, Selangor",
-            tags: ["Student", "CookingAllowed", "Pool", "Study", "Furnished"],
-            beds: "1",
-            baths: "Shared",
-            size: "550",
-            amenities: ["wifi", "pool", "furnished", "study"],
-            rating: 4.7,
-            reviews: 32,
-            distance: "500m from Taylor's University",
-            availableFrom: "Feb 1, 2024",
-            isVerified: true,
-            isFeatured: true,
-            isTrending: true,
-            views: 312,
-            saves: 56,
-        },
-        {
-            image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-            type: "STUDIO",
-            price: "RM 1,200/mo",
-            title: "Mont Kiara Luxury Suites",
-            location: "Mont Kiara, Kuala Lumpur",
-            tags: ["Luxury", "FullyFurnished", "CityView", "Gym", "Pool"],
-            beds: "1",
-            baths: "1 Bath",
-            size: "850",
-            amenities: ["wifi", "gym", "pool", "furnished", "security"],
-            rating: 4.9,
-            reviews: 42,
-            distance: "2.1 km from International Schools",
-            availableFrom: "Immediate",
-            isVerified: true,
-            isFeatured: false,
-            isTrending: false,
-            views: 478,
-            saves: 89,
-        },
-        {
-            image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-            type: "SHARED ROOM",
-            price: "RM 450/mo",
-            title: "University Garden Apartments",
-            location: "Setapak, Kuala Lumpur",
-            tags: ["Student", "Budget", "Shared", "Cooking", "Laundry"],
-            beds: "1",
-            baths: "Shared",
-            size: "350",
-            amenities: ["wifi", "laundry", "kitchen"],
-            rating: 4.3,
-            reviews: 15,
-            distance: "Walking distance to TAR University",
-            availableFrom: "Jan 20, 2024",
-            isVerified: true,
-            isFeatured: false,
-            isTrending: true,
-            views: 156,
-            saves: 23,
-        },
-        {
-            image: "https://images.unsplash.com/photo-1494526585095-c41746248156?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-            type: "MASTER ROOM",
-            price: "RM 950/mo",
-            title: "KL Sentral Residences",
-            location: "Brickfields, Kuala Lumpur",
-            tags: ["CityCenter", "Transport", "Modern", "Security", "Balcony"],
-            beds: "1",
-            baths: "1 Bath",
-            size: "700",
-            amenities: ["wifi", "security", "balcony", "ac"],
-            rating: 4.5,
-            reviews: 28,
-            distance: "Adjacent to KL Sentral Station",
-            availableFrom: "Immediate",
-            isVerified: true,
-            isFeatured: true,
-            isTrending: false,
-            views: 321,
-            saves: 67,
-        },
-    ];
+    // const listings = [
+    //     {
+    //         image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    //         type: "MASTER ROOM",
+    //         price: "RM 850/mo",
+    //         title: "Sunway Geo Residences",
+    //         location: "Bandar Sunway, Selangor",
+    //         tags: ["Quiet", "PetFriendly", "NonSmoker", "Wifi", "AC"],
+    //         beds: "1",
+    //         baths: "1 Bath",
+    //         size: "650",
+    //         amenities: ["wifi", "ac", "parking"],
+    //         rating: 4.8,
+    //         reviews: 24,
+    //         distance: "1.2 km from Sunway University",
+    //         availableFrom: "Jan 15, 2024",
+    //         isVerified: true,
+    //         isFeatured: true,
+    //         isTrending: true,
+    //         views: 245,
+    //         saves: 42,
+    //     },
+    //     {
+    //         image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    //         type: "SINGLE ROOM",
+    //         price: "RM 600/mo",
+    //         title: "Nadi Bangsar Service Residence",
+    //         location: "Bangsar, Kuala Lumpur",
+    //         tags: ["NearLRT", "Professional", "Gym", "Pool", "Security"],
+    //         beds: "1",
+    //         baths: "Shared",
+    //         size: "450",
+    //         amenities: ["wifi", "gym", "pool", "security"],
+    //         rating: 4.6,
+    //         reviews: 18,
+    //         distance: "300m from Bangsar LRT",
+    //         availableFrom: "Immediate",
+    //         isVerified: true,
+    //         isFeatured: true,
+    //         isTrending: true,
+    //         views: 189,
+    //         saves: 31,
+    //     },
+    //     {
+    //         image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    //         type: "MIDDLE ROOM",
+    //         price: "RM 750/mo",
+    //         title: "The Grand Subang SS15",
+    //         location: "Subang Jaya, Selangor",
+    //         tags: ["Student", "CookingAllowed", "Pool", "Study", "Furnished"],
+    //         beds: "1",
+    //         baths: "Shared",
+    //         size: "550",
+    //         amenities: ["wifi", "pool", "furnished", "study"],
+    //         rating: 4.7,
+    //         reviews: 32,
+    //         distance: "500m from Taylor's University",
+    //         availableFrom: "Feb 1, 2024",
+    //         isVerified: true,
+    //         isFeatured: true,
+    //         isTrending: true,
+    //         views: 312,
+    //         saves: 56,
+    //     },
+    //     {
+    //         image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    //         type: "STUDIO",
+    //         price: "RM 1,200/mo",
+    //         title: "Mont Kiara Luxury Suites",
+    //         location: "Mont Kiara, Kuala Lumpur",
+    //         tags: ["Luxury", "FullyFurnished", "CityView", "Gym", "Pool"],
+    //         beds: "1",
+    //         baths: "1 Bath",
+    //         size: "850",
+    //         amenities: ["wifi", "gym", "pool", "furnished", "security"],
+    //         rating: 4.9,
+    //         reviews: 42,
+    //         distance: "2.1 km from International Schools",
+    //         availableFrom: "Immediate",
+    //         isVerified: true,
+    //         isFeatured: false,
+    //         isTrending: false,
+    //         views: 478,
+    //         saves: 89,
+    //     },
+    //     {
+    //         image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    //         type: "SHARED ROOM",
+    //         price: "RM 450/mo",
+    //         title: "University Garden Apartments",
+    //         location: "Setapak, Kuala Lumpur",
+    //         tags: ["Student", "Budget", "Shared", "Cooking", "Laundry"],
+    //         beds: "1",
+    //         baths: "Shared",
+    //         size: "350",
+    //         amenities: ["wifi", "laundry", "kitchen"],
+    //         rating: 4.3,
+    //         reviews: 15,
+    //         distance: "Walking distance to TAR University",
+    //         availableFrom: "Jan 20, 2024",
+    //         isVerified: true,
+    //         isFeatured: false,
+    //         isTrending: true,
+    //         views: 156,
+    //         saves: 23,
+    //     },
+    //     {
+    //         image: "https://images.unsplash.com/photo-1494526585095-c41746248156?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    //         type: "MASTER ROOM",
+    //         price: "RM 950/mo",
+    //         title: "KL Sentral Residences",
+    //         location: "Brickfields, Kuala Lumpur",
+    //         tags: ["CityCenter", "Transport", "Modern", "Security", "Balcony"],
+    //         beds: "1",
+    //         baths: "1 Bath",
+    //         size: "700",
+    //         amenities: ["wifi", "security", "balcony", "ac"],
+    //         rating: 4.5,
+    //         reviews: 28,
+    //         distance: "Adjacent to KL Sentral Station",
+    //         availableFrom: "Immediate",
+    //         isVerified: true,
+    //         isFeatured: true,
+    //         isTrending: false,
+    //         views: 321,
+    //         saves: 67,
+    //     },
+    // ];
 
     const slidesToShow = {
         base: 1,
@@ -164,7 +164,7 @@ export function FeaturedListings() {
 
     const nextSlide = () => {
         setCurrentIndex((prevIndex) => {
-            const maxIndex = listings.length - getSlidesToShow();
+            const maxIndex = room_data.length - getSlidesToShow();
             return prevIndex >= maxIndex ? 0 : prevIndex + 1;
         });
     };
@@ -172,7 +172,7 @@ export function FeaturedListings() {
     const prevSlide = () => {
         setCurrentIndex((prevIndex) => {
             return prevIndex === 0
-                ? listings.length - getSlidesToShow()
+                ? room_data.length - getSlidesToShow()
                 : prevIndex - 1;
         });
     };
@@ -293,7 +293,7 @@ export function FeaturedListings() {
                                 <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">
                                     <Building2 className="w-4 h-4 text-blue-600" />
                                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        {listings.length} Properties
+                                        {room_data.length} Properties
                                     </span>
                                 </div>
 
@@ -331,7 +331,7 @@ export function FeaturedListings() {
                                     className="p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
                                     disabled={
                                         currentIndex >=
-                                        listings.length - getSlidesToShow()
+                                        room_data.length - getSlidesToShow()
                                     }
                                 >
                                     <RightIcon className="w-5 h-5" />
@@ -362,7 +362,7 @@ export function FeaturedListings() {
                         drag="x"
                         dragConstraints={{
                             left: -(
-                                (listings.length - getSlidesToShow()) *
+                                (room_data.length - getSlidesToShow()) *
                                 (100 / getSlidesToShow())
                             ),
                             right: 0,
@@ -380,7 +380,7 @@ export function FeaturedListings() {
                         }}
                     >
                         <AnimatePresence mode="wait">
-                            {listings.map((listing, index) => (
+                            {room_data.map((listing, index) => (
                                 <motion.div
                                     key={index}
                                     className="flex-shrink-0 px-3"

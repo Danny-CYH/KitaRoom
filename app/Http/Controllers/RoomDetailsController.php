@@ -18,6 +18,6 @@ class RoomDetailsController extends Controller
             ->where("rooms.room_id", $room_id)
             ->get();
 
-        return Inertia::render('RoomDetails', ['room_data', $room_data]);
+        return Inertia::render('RoomDetails', ['room_data' => $room_data]);
     }
 }
