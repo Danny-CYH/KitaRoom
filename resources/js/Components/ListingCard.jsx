@@ -5,40 +5,23 @@ import {
     Bed,
     Bath,
     CheckCircle,
-    Wifi,
-    Car,
-    Users,
     Ruler,
     Calendar,
     UserPlus,
 } from "lucide-react";
 
-const ListingCard = ({ listing }) => {
+export default function ListingCard({ room_listing }) {
+    console.log(room_listing);
+
     const [isFavorite, setIsFavorite] = useState(false);
-    const {
-        image,
-        type,
-        price,
-        title,
-        location,
-        tags,
-        beds,
-        baths,
-        size,
-        amenities = ["wifi", "parking"],
-        rating = 4.8,
-        reviews = 42,
-        moveInDate = "Available Now",
-        preferredTenant = "Students & Professionals",
-    } = listing;
 
     return (
         <div className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-2xl hover:border-blue-200 dark:hover:border-blue-800/50 transition-all duration-300">
             {/* Image Container */}
             <div className="relative aspect-[4/3] overflow-hidden">
                 <img
-                    src={image}
-                    alt={title}
+                    src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    alt="N/A"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
 
@@ -48,7 +31,7 @@ const ListingCard = ({ listing }) => {
                 {/* Badges */}
                 <div className="absolute top-4 left-4 flex gap-2">
                     <span className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-xs font-bold rounded-lg backdrop-blur-sm">
-                        {type}
+                        {room_listing.room_type || "N/A"}
                     </span>
                     <span className="px-3 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-lg backdrop-blur-sm flex items-center gap-1">
                         <CheckCircle className="w-3 h-3" />
@@ -71,7 +54,7 @@ const ListingCard = ({ listing }) => {
                     <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-3 py-2.5 rounded-xl font-bold shadow-xl">
                         <div className="flex items-baseline">
                             <span className="text-sm">
-                                {price.split("/")[0]}
+                                RM {room_listing.room_price || "N/A"}
                             </span>
                             <span className="text-sm font-normal opacity-90 ml-1">
                                 /month
@@ -86,7 +69,7 @@ const ListingCard = ({ listing }) => {
                         {[...Array(5)].map((_, i) => (
                             <svg
                                 key={i}
-                                className={`w-3 h-3 ${i < Math.floor(rating) ? "text-yellow-400 fill-yellow-400" : "text-gray-400"}`}
+                                className={`w-3 h-3 ${i < Math.floor(room_listing.total_ratings) ? "text-yellow-400 fill-yellow-400" : "text-gray-400"}`}
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                             >
@@ -95,7 +78,7 @@ const ListingCard = ({ listing }) => {
                         ))}
                     </div>
                     <span className="text-xs font-medium text-white">
-                        {rating} ({reviews})
+                        {room_listing.total_ratings}
                     </span>
                 </div>
             </div>
@@ -105,11 +88,11 @@ const ListingCard = ({ listing }) => {
                 {/* Title & Location */}
                 <div className="mb-4">
                     <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {title}
+                        N/A
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
                         <MapPin className="w-4 h-4" />
-                        {location}
+                        N/A
                     </p>
                 </div>
 
@@ -122,7 +105,7 @@ const ListingCard = ({ listing }) => {
                                 Move-in Date
                             </p>
                             <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                                {moveInDate}
+                                {room_listing.available_from}
                             </p>
                         </div>
                     </div>
@@ -133,7 +116,8 @@ const ListingCard = ({ listing }) => {
                                 Preferred Tenant
                             </p>
                             <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                                {preferredTenant}
+                                {room_listing.gender_preference} |{" "}
+                                {room_listing.race_preference}
                             </p>
                         </div>
                     </div>
@@ -145,7 +129,7 @@ const ListingCard = ({ listing }) => {
                         <div className="flex items-center justify-center gap-2 mb-1">
                             <Bed className="w-4 h-4 text-blue-600" />
                             <span className="font-semibold text-gray-900 dark:text-white">
-                                {beds}
+                                N/A
                             </span>
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -156,7 +140,7 @@ const ListingCard = ({ listing }) => {
                         <div className="flex items-center justify-center gap-2 mb-1">
                             <Bath className="w-4 h-4 text-blue-600" />
                             <span className="font-semibold text-gray-900 dark:text-white">
-                                {baths}
+                                N/A
                             </span>
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -167,7 +151,7 @@ const ListingCard = ({ listing }) => {
                         <div className="flex items-center justify-center gap-2 mb-1">
                             <Ruler className="w-4 h-4 text-blue-600" />
                             <span className="font-semibold text-gray-900 dark:text-white">
-                                {size}
+                                N/A
                             </span>
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -185,6 +169,4 @@ const ListingCard = ({ listing }) => {
             </div>
         </div>
     );
-};
-
-export default ListingCard;
+}

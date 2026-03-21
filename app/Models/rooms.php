@@ -4,22 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class rooms extends Model
+class Rooms extends Model
 {
     protected $table = "rooms";
 
-    public $primaryKey = "room_id";
-    public $increment = false;
+    // public $primaryKey = "room_id";
 
     protected $fillable = [
         "room_id",
-        "room_name",
+        "property_id",
+        "room_type",
         "room_address",
         "room_price",
         "room_size",
-        "room_status",
+        "room_deposit",
         "total_ratings",
+        "gender_preference",
+        "race_preference",
+        "lease_duration",
         "is_verified",
-        "property_type",
+        "available_from",
     ];
 }

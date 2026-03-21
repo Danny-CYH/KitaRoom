@@ -39,3 +39,4 @@ Route::get('/social-feed', [SocialFeedController::class, 'socialFeed'])->name('s
 Route::get("/message", [MessageController::class, "message"])->name("message");
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/api.php';

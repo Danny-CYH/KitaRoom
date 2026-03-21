@@ -411,7 +411,7 @@ export function FeaturedListings() {
                                     {/* Card Container with Badges */}
                                     <div className="relative">
                                         {/* Your Existing ListingCard */}
-                                        <ListingCard listing={listing} />
+                                        <ListingCard room_listing={listing} />
                                     </div>
                                 </motion.div>
                             ))}
