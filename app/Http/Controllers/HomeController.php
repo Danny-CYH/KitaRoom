@@ -12,6 +12,10 @@ class HomeController extends Controller
     {
         $room_data = Rooms::with([
             "room_amenities",
+            "room_image" => function ($q) {
+                $q->select("room_id", "image_path")
+                    ->get();
+            },
             "property"
         ])->get();
 

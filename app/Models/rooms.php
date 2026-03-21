@@ -31,6 +31,11 @@ class Rooms extends Model
         return $this->hasMany(RoomAmenities::class, 'room_id', "room_id");
     }
 
+    public function room_image()
+    {
+        return $this->hasMany(RoomImage::class, "room_id", "room_id");
+    }
+
     public function property()
     {
         return $this->hasOne(Property::class, "property_id", "property_id");
